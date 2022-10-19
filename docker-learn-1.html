@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- iOS Safari -->
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<!-- Chrome, Firefox OS and Opera Status Bar Color -->
+<meta name="theme-color" content="#FFFFFF">
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.11.1/katex.min.css">
+<link rel="stylesheet" type="text/css"
+  href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.19.0/themes/prism.min.css">
+<link rel="stylesheet" type="text/css" href="css/SourceSansPro.css">
+<link rel="stylesheet" type="text/css" href="css/theme.css">
+<link rel="stylesheet" type="text/css" href="css/notablog.css">
+<!-- Favicon -->
+
+  <link rel="shortcut icon" href="https://www.notion.so/signed/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2Fca6e9e8d-f91e-48ac-b23c-f18320c1c383%2FRDN_%25E5%258C%25BA%25E5%259D%2597%25E9%2593%25BE.png?table=collection&amp;id=7341bacf-11e4-44a7-8730-f75a670e8ab8">
+
+<style>
+  :root {
+    font-size: 20px;
+  }
+</style>
+  <title>Docker学习笔记（一）&nbsp;|&nbsp;Jaleel&#39;s Blog</title>
+  <meta property="og:type" content="blog">
+  <meta property="og:title" content="Docker学习笔记（一）">
+  
+    <meta name="description" content="Docker学习笔记">
+    <meta property="og:description" content="Docker学习笔记">
+  
+  
+    <meta property="og:image" content="https://www.notion.so/signed/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2F1f2dfb2f-ced0-430b-a237-4f5d2a642ff9%2Fv2-68b55eca7e54ac6b7e3dae441e193827_720w.jpg?table=block&amp;id=bc2028c3-4435-432b-aa72-a68c2ced36e6">
+  
+  <style>
+    .DateTagBar {
+      margin-top: 1.0rem;
+    }
+  </style>
+</head>
+
+<body>
+  <nav class="Navbar">
+  <a href="index.html">
+    <div class="Navbar__Btn">
+      
+        <span><img class="inline-img-icon" src="https://www.notion.so/signed/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2Fca6e9e8d-f91e-48ac-b23c-f18320c1c383%2FRDN_%25E5%258C%25BA%25E5%259D%2597%25E9%2593%25BE.png?table=collection&amp;id=7341bacf-11e4-44a7-8730-f75a670e8ab8"></span>&nbsp;
+      
+      <span>主页</span>
+    </div>
+  </a>
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+      <span class="Navbar__Delim">&centerdot;</span>
+      <a href="about.html">
+        <div class="Navbar__Btn">
+          
+            <span><img class="inline-img-icon" src="https://www.notion.so/signed/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2Ff4c34181-9785-493c-a490-929fa5895258%2F224%25E7%2594%25A8%25E6%2588%25B7.png?table=block&amp;id=cce294fa-3f4c-413b-9b68-387c3c57cb66"></span>&nbsp;
+          
+          <span>关于</span>
+        </div>
+      </a>
+    
+  
+</nav>
+
+  <header class="Header">
+    
+      <div class="Header__Cover">
+        <img src="https://www.notion.so/images/page-cover/woodcuts_sekka_3.jpg">
+      </div>
+    
+    <div class="Header__Spacer ">
+    </div>
+    
+      <div class="Header__Icon">
+        <span><img class="inline-img-icon" src="https://www.notion.so/signed/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2F1f2dfb2f-ced0-430b-a237-4f5d2a642ff9%2Fv2-68b55eca7e54ac6b7e3dae441e193827_720w.jpg?table=block&amp;id=bc2028c3-4435-432b-aa72-a68c2ced36e6"></span>
+      </div>
+    
+    <h1 class="Header__Title">Docker学习笔记（一）</h1>
+    
+      <div class="DateTagBar">
+        
+          <span class="DateTagBar__Item DateTagBar__Date">Posted on Wed, Oct 19, 2022</span>
+        
+        
+          <span class="DateTagBar__Item DateTagBar__Tag DateTagBar__Tag--orange">
+            <a href="tag/Docker.html">Docker</a>
+          </span>
+        
+      </div>
+    
+  </header>
+  <article id="https://www.notion.so/bc2028c34435432baa72a68c2ced36e6" class="PageRoot"><h1 id="https://www.notion.so/c48d92ca096642809623140c8a03d55f" class="ColorfulBlock ColorfulBlock--ColorDefault Heading Heading--1"><a class="Anchor" href="#https://www.notion.so/c48d92ca096642809623140c8a03d55f"><svg width="16" height="16" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><span class="SemanticStringArray"><span class="SemanticString">一、Docker的安装与卸载（Ubuntu版本）</span></span></h1><h3 id="https://www.notion.so/5cd23a347bdf4924b9eadcff07983792" class="ColorfulBlock ColorfulBlock--ColorDefault Heading Heading--3"><a class="Anchor" href="#https://www.notion.so/5cd23a347bdf4924b9eadcff07983792"><svg width="16" height="16" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><span class="SemanticStringArray"><span class="SemanticString">Docker的安装</span></span></h3><pre id="https://www.notion.so/10fd2d64cd54421693f771c107ee546f" class="Code"><code><span class="SemanticStringArray"><span class="SemanticString"><span># 1、更新软件包索引，并且安装必要的依赖软件，来添加一个新的 HTTPS 软件源：
+sudo apt update
+sudo apt install apt-transport-https ca-certificates curl gnupg-agent software-properties-common
+
+sudo apt install apt-transport-https ca-certificates curl software-properties-common
+
+# 2、使用下面的 curl 导入源仓库的 GPG key：
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+
+# 3、将 Docker APT 软件源添加到你的系统：
+sudo add-apt-repository &quot;deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable&quot;
+
+# 4、安装 Docker 最新版本
+sudo apt update
+sudo apt install docker-ce docker-ce-cli containerd.io
+
+# 5、安装指定版本Docker
+sudo apt update
+apt list -a docker-ce
+sudo apt install docker-ce=&lt;VERSION&gt; docker-ce-cli=&lt;VERSION&gt; containerd.io
+
+# 6、验证Docker信息
+sudo systemctl status docker
+
+# 7、阻止自动更新
+sudo apt-mark hold docker-ce
+
+# 8、以非 Root 用户身份执行 Docker
+sudo usermod -aG docker $USER               # $USER是一个环境变量，代表当前用户名。
+
+# 9、验证安装过程
+docker container run hello-world
+
+# 10、设置镜像地址
+vim /etc/docker/daemon.json
+# 增加以下内容
+{
+&quot;registry-mirrors&quot;:[&quot;https://hub-mirror.c.163.com&quot;,&quot;https://registry.aliyuncs.com&quot;,&quot;https://registry.docker-cn.com&quot;,&quot;https://docker.mirrors.ustc.edu.cn&quot;]
+}
+# 修改后重启docker服务
+service docker restart</span></span></span></code></pre><h3 id="https://www.notion.so/92f1f23d4ce948f8bdea1632cdc69b77" class="ColorfulBlock ColorfulBlock--ColorDefault Heading Heading--3"><a class="Anchor" href="#https://www.notion.so/92f1f23d4ce948f8bdea1632cdc69b77"><svg width="16" height="16" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><span class="SemanticStringArray"><span class="SemanticString">Docker的卸载</span></span></h3><pre id="https://www.notion.so/2a2009daba3541218db12d1484353eda" class="Code"><code><span class="SemanticStringArray"><span class="SemanticString"><span># 卸载Docker CE
+sudo apt-get purge docker-ce
+sudo apt-get purge docker docker-ce docker-engine  docker.io  containerd runc
+# 卸载Docker EE
+sudo apt-get purge docker-ee
+# 删除Docker镜像、容器、数据卷等文件
+sudo rm -rf /var/lib/docker
+
+# 删除docker其他没有没有卸载
+dpkg -l | grep docker
+sudo apt-get autoremove docker docker-ce docker-engine  docker.io  containerd runc
+sudo apt-get autoremove docker-ce-*
+sudo rm -rf /etc/systemd/system/docker.service.d
+sudo rm -rf /var/lib/docker</span></span></span></code></pre><h1 id="https://www.notion.so/fcdba85b6bb24350ad7ea27142485f56" class="ColorfulBlock ColorfulBlock--ColorDefault Heading Heading--1"><a class="Anchor" href="#https://www.notion.so/fcdba85b6bb24350ad7ea27142485f56"><svg width="16" height="16" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><span class="SemanticStringArray"><span class="SemanticString">二、Docker的安装与卸载（Centos版本）</span></span></h1><h3 id="https://www.notion.so/5a0672dfe42347cdacfc4816f0d10f70" class="ColorfulBlock ColorfulBlock--ColorDefault Heading Heading--3"><a class="Anchor" href="#https://www.notion.so/5a0672dfe42347cdacfc4816f0d10f70"><svg width="16" height="16" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><span class="SemanticStringArray"><span class="SemanticString">Docker的安装</span></span></h3><div id="https://www.notion.so/49c6a073392446faabf3325be158d282" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString">在安装 Docker 之前，先说一下配置，我这里是Centos7 Linux 内核：官方建议 3.10 以上，3.8以上貌似也可。</span></span></p></div><div id="https://www.notion.so/bd117358e38648e7a19da3be179b2dd9" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString">注意：本文的命令使用的是 root 用户登录执行，不是 root 的话所有命令前面要加 </span><span class="SemanticString"><code class="SemanticString__Fragment SemanticString__Fragment--Code">sudo</code></span></span></p></div><div id="https://www.notion.so/44caaf92695f43ac917fe23770b260a5" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString"><strong class="SemanticString__Fragment SemanticString__Fragment--Bold">1.查看当前的内核版本</strong></span></span></p></div><pre id="https://www.notion.so/b1ad87c4b8384c85af054152ccd63edb" class="Code"><code><span class="SemanticStringArray"><span class="SemanticString"><span>uname -r</span></span></span></code></pre><div id="https://www.notion.so/fba65338f0a64814910d99a418e04e2d" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString"><strong class="SemanticString__Fragment SemanticString__Fragment--Bold">2.使用 root 权限更新 yum 包（生产环境中此步操作需慎重，看自己情况，学习的话随便搞）</strong></span></span></p></div><pre id="https://www.notion.so/006ef136152f43f3a3632bb1de8972e2" class="Code"><code><span class="SemanticStringArray"><span class="SemanticString"><span>yum -y update</span></span></span></code></pre><div id="https://www.notion.so/2c2c645956eb475685d115b07af35964" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString">这个命令不是必须执行的，看个人情况，后面出现不兼容的情况的话就必须update了</span></span></p></div><pre id="https://www.notion.so/4e579440af794a979a5d32344766c472" class="Code"><code><span class="SemanticStringArray"><span class="SemanticString"><span>注意
+yum -y update：升级所有包同时也升级软件和系统内核；
+yum -y upgrade：只升级所有包，不升级软件和系统内核</span></span></span></code></pre><div id="https://www.notion.so/34b6a3e46f914d5aa49eddb382f60346" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString"><strong class="SemanticString__Fragment SemanticString__Fragment--Bold">3.卸载旧版本（如果之前安装过的话）</strong></span></span></p></div><pre id="https://www.notion.so/eb6772c8b68b46ffbe60f7c8f15acc12" class="Code"><code><span class="SemanticStringArray"><span class="SemanticString"><span>yum remove docker  docker-common docker-selinux docker-engine</span></span></span></code></pre><div id="https://www.notion.so/1f8b2634f6b141e7a836fe770ecdf4de" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString"><strong class="SemanticString__Fragment SemanticString__Fragment--Bold">4.安装需要的软件包， yum-util 提供yum-config-manager功能，另两个是devicemapper驱动依赖</strong></span></span></p></div><pre id="https://www.notion.so/3273ea276f094644a6c925ab668e1e7b" class="Code"><code><span class="SemanticStringArray"><span class="SemanticString"><span>yum install -y yum-utils device-mapper-persistent-data lvm2</span></span></span></code></pre><div id="https://www.notion.so/6361276c0b9b47c18729a3ffecf14f0b" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString"><strong class="SemanticString__Fragment SemanticString__Fragment--Bold">5.设置 yum 源</strong></span></span></p></div><div id="https://www.notion.so/bce55c6ddcc54eddbe8dd073227997e9" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString">设置一个yum源，下面两个都可用</span></span></p></div><pre id="https://www.notion.so/4766e800c61647eea656646727f0ac45" class="Code"><code><span class="SemanticStringArray"><span class="SemanticString"><span># 中央仓库
+yum-config-manager --add-repo http://download.docker.com/linux/centos/docker-ce.repo
+# 阿里仓库
+yum-config-manager --add-repo http://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo</span></span></span></code></pre><div id="https://www.notion.so/bfdd3622f3a543f3b635ebf88bf52035" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString"><strong class="SemanticString__Fragment SemanticString__Fragment--Bold">6.选择docker版本并安装</strong></span></span></p></div><div id="https://www.notion.so/3089ec15a73c4b469ea846750bbf2cdd" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString">（1）安装最新版本</span></span></p></div><pre id="https://www.notion.so/5d7e8394f0c847b2ba177d3722d081fa" class="Code"><code><span class="SemanticStringArray"><span class="SemanticString"><span>yum install docker-ce docker-ce-cli containerd.io</span></span></span></code></pre><div id="https://www.notion.so/6ac9545e08064b00aea66251a856ba35" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString">（2）查看可用版本有哪些</span></span></p></div><pre id="https://www.notion.so/656015a9f304422481fd01228ba95aee" class="Code"><code><span class="SemanticStringArray"><span class="SemanticString"><span>yum list docker-ce --showduplicates | sort -r</span></span></span></code></pre><div id="https://www.notion.so/846455a9cc0f44e2a44ef75bde7beddb" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString">（3）选择一个版本并安装：</span><span class="SemanticString"><code class="SemanticString__Fragment SemanticString__Fragment--Code">yum install docker-ce-版本号</code></span></span></p></div><pre id="https://www.notion.so/0497e3d8ba094af493b679517b02c581" class="Code"><code><span class="SemanticStringArray"><span class="SemanticString"><span>yum -y install docker-ce-18.03.1.ce</span></span></span></code></pre><div id="https://www.notion.so/341889096c8d4cff976116df29ae40b7" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString"><strong class="SemanticString__Fragment SemanticString__Fragment--Bold">7.启动 Docker 并设置开机自启</strong></span></span></p></div><pre id="https://www.notion.so/fe29fc8a80d94b74969358daebf4c407" class="Code"><code><span class="SemanticStringArray"><span class="SemanticString"><span>systemctl start docker
+systemctl enable docker</span></span></span></code></pre><h1 id="https://www.notion.so/af2dc946db774d4e8caeef56abf3dfec" class="ColorfulBlock ColorfulBlock--ColorDefault Heading Heading--1"><a class="Anchor" href="#https://www.notion.so/af2dc946db774d4e8caeef56abf3dfec"><svg width="16" height="16" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><span class="SemanticStringArray"><span class="SemanticString">三、Docker的基本组成</span></span></h1><h3 id="https://www.notion.so/3ae412c0bbae4ec3a2e6a82d1886622c" class="ColorfulBlock ColorfulBlock--ColorDefault Heading Heading--3"><a class="Anchor" href="#https://www.notion.so/3ae412c0bbae4ec3a2e6a82d1886622c"><svg width="16" height="16" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><span class="SemanticStringArray"><span class="SemanticString">镜像（image）：</span></span></h3><div id="https://www.notion.so/e4eb2041be95486288e11dcc576582a0" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString">docker镜像好比一个镜像，可以通过这个模板创建容器服务，通过这个镜像可以创建多个容器（最终服务运行或者项目运行就是在容器中的）</span></span></p></div><div id="https://www.notion.so/212a80800cad4b2bb37e9e8f8cf9bb2f" class="Divider"></div><h3 id="https://www.notion.so/d0c0e6e6c15a4ec5b84d429b09328a3e" class="ColorfulBlock ColorfulBlock--ColorDefault Heading Heading--3"><a class="Anchor" href="#https://www.notion.so/d0c0e6e6c15a4ec5b84d429b09328a3e"><svg width="16" height="16" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><span class="SemanticStringArray"><span class="SemanticString">容器（container）：</span></span></h3><div id="https://www.notion.so/ea21809c2de545079bcaca8431e045dc" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString">Docker利用容器技术，独立运用一个或一组应用，通过镜像来创建的，可以进行启动、停止、删除、运行等基本命令；可以把这个容器简单理解为一个简易的Linux系统</span></span></p></div><div id="https://www.notion.so/890db38026ce42278f4aa512b5d9e894" class="Divider"></div><h3 id="https://www.notion.so/9e815fbe5b354619b045a97aaf83e625" class="ColorfulBlock ColorfulBlock--ColorDefault Heading Heading--3"><a class="Anchor" href="#https://www.notion.so/9e815fbe5b354619b045a97aaf83e625"><svg width="16" height="16" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><span class="SemanticStringArray"><span class="SemanticString">仓库（repository）：</span></span></h3><div id="https://www.notion.so/582b62b879d7466da7f9c11b90b21c87" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString">存放镜像的地方，可分为公有仓和私有仓，默认仓库为Docker Hub</span></span></p></div><div id="https://www.notion.so/b90058fa006d41e78f91552b3296f151" class="Divider"></div><h1 id="https://www.notion.so/58694b9dfdd44c2da584619681e34e20" class="ColorfulBlock ColorfulBlock--ColorDefault Heading Heading--1"><a class="Anchor" href="#https://www.notion.so/58694b9dfdd44c2da584619681e34e20"><svg width="16" height="16" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><span class="SemanticStringArray"><span class="SemanticString">四、Docker的常用命令</span></span></h1><pre id="https://www.notion.so/06d6cad34b49407a83d7ad9969a6ec22" class="Code"><code><span class="SemanticStringArray"><span class="SemanticString"><span># 显示docker版本信息
+docker version
+# 显示都持卡人的系统信息，包括镜像和服务
+docker info
+# 万能命令
+docker 命令 --help</span></span></span></code></pre><div id="https://www.notion.so/928e44bd2e2f49d8a8c79e4652154249" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString">docker官方文档：省略</span></span></p></div><div id="https://www.notion.so/4c6c5d914fdf4bc59b81976633ac2a1f" class="Divider"></div><h3 id="https://www.notion.so/c36df37829744503a0019b50406b8bc1" class="ColorfulBlock ColorfulBlock--ColorDefault Heading Heading--3"><a class="Anchor" href="#https://www.notion.so/c36df37829744503a0019b50406b8bc1"><svg width="16" height="16" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><span class="SemanticStringArray"><span class="SemanticString">镜像命令：</span></span></h3><pre id="https://www.notion.so/df2d57ce954d45acba5111a9a8281a29" class="Code"><code><span class="SemanticStringArray"><span class="SemanticString"><span># 查看所有本地的主机上的镜像
+docker images
+    -a      # 列出所有的镜像
+    -q      # 只显示镜像的Id
+
+# docker的搜索
+docker search mysql(镜像名称)
+
+# docker下载镜像
+docker pull mysql
+docker pull mysql:5.7 # name：tag，不写tag默认是latest
+
+# docker删除镜像
+docker rmi -f imageId/imageName         # 通过镜像名字或镜像Id删除镜像，可删除多个
+docker rmi -f $(docker images -ag)      # 查询出所有镜像，递归删除
+</span></span></span></code></pre><div id="https://www.notion.so/ad68db36f67a403ba306f6799a29751b" class="Divider"></div><h3 id="https://www.notion.so/e7823695099943919d219642cc26c0eb" class="ColorfulBlock ColorfulBlock--ColorDefault Heading Heading--3"><a class="Anchor" href="#https://www.notion.so/e7823695099943919d219642cc26c0eb"><svg width="16" height="16" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><span class="SemanticStringArray"><span class="SemanticString">容器命令：</span></span></h3><pre id="https://www.notion.so/1a9eecde9e6841279b2581f71cc42d22" class="Code"><code><span class="SemanticStringArray"><span class="SemanticString"><span>docker pull centos
+docker run --help
+docker run [可选参数] image
+    --name=&quot;Name&quot;       # 容器名字
+    -d                  # 后台运行， nohup
+    -it                 # 使用交互方式运行，进入容器查看
+    -p                  # 指定容器端口，如：-p 8080:8080
+        -p      # 主机端口：容器端口
+        -p      # 容器端口
+        -p      # ip:主机端口:容器端口
+
+# 测试，启动并进入容器
+docker run -it centos /bin/bash
+
+# 列出所有运行的容器
+docker ps [命令]
+    -a          # 列出当前正在运行的容器和历史运行的容器
+                # 命令为空，则列出当前正在运行的容器
+    -n=1        # 显示最近创建的容器
+    -q          # 只显示容器的编号
+
+# 退出容器
+exit            # 容器停止并退出
+Ctrl + p + q    # 退出容器，不停止运行
+
+# 删除容器
+docer rm 容器id                       # 删除指定容器，不能删除正在运行的容器
+docker rm -f $(docker ps -aq)        # 删除所有容器，强制删除，包括正在运行的容器
+docker ps -a -q|xargs docker rm      # 删除所有的容器
+
+# 启动和停止容器操作
+docker start 容器Id                   # 启动容器
+dockre restart 容器Id                 # 重启容器
+docker stop 容器Id                    # 停止当前正在运行的容器
+docker kill 容器Id                    # 强制停止当前正在运行的容器</span></span></span></code></pre><div id="https://www.notion.so/b7b04b70f0ac463d869962a4e16cddf6" class="Divider"></div><h3 id="https://www.notion.so/e7b7abdd3ada488e960231f862382cb4" class="ColorfulBlock ColorfulBlock--ColorDefault Heading Heading--3"><a class="Anchor" href="#https://www.notion.so/e7b7abdd3ada488e960231f862382cb4"><svg width="16" height="16" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><span class="SemanticStringArray"><span class="SemanticString">常用其他命令</span></span></h3><pre id="https://www.notion.so/c2ee2100772f415d90bbcc9dea701cb3" class="Code"><code><span class="SemanticStringArray"><span class="SemanticString"><span># 后台启动容器
+docker run -d 容器名字/容器Id
+
+# 查看日志
+docker logs --help
+docker logs -f -t --tail
+    -tf         # 显示日志
+    --tail num  # 显示日志条数
+
+# 查看镜像元数据
+docker inspect 容器id
+
+# 进入当前正在运行的容器
+# 方式一
+docker exec -it 容器Id bashShell  # 进入容器后，开启一个新的终端，可以在里面操作
+docker exec -it 容器Id /bin/bash
+# 方式二
+docker attach 容器Id              # 进入容器正在执行的终端，不会启动新的进程
+
+# 从容器内拷贝文件到主机上
+
+docker cp 容器id：容器内路径 目的的主机路径
+</span></span></span></code></pre><h1 id="https://www.notion.so/4a455d815dd64596ba177289820d7214" class="ColorfulBlock ColorfulBlock--ColorDefault Heading Heading--1"><a class="Anchor" href="#https://www.notion.so/4a455d815dd64596ba177289820d7214"><svg width="16" height="16" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><span class="SemanticStringArray"><span class="SemanticString">五、Docker镜像加载原理</span></span></h1><h3 id="https://www.notion.so/4d526d2e89f444af8114c1091faa6cbe" class="ColorfulBlock ColorfulBlock--ColorDefault Heading Heading--3"><a class="Anchor" href="#https://www.notion.so/4d526d2e89f444af8114c1091faa6cbe"><svg width="16" height="16" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><span class="SemanticStringArray"><span class="SemanticString">UnionFS：</span></span></h3><div id="https://www.notion.so/a4ec46bb58a44caeb5b28e322315c9c5" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString">联合文件系统：一次同时加载多个文件系统，多个文件系统叠加联合构成所有底层的文件和目录。</span></span></p></div><h3 id="https://www.notion.so/e17021c5301f41769ca3c498b77694a7" class="ColorfulBlock ColorfulBlock--ColorDefault Heading Heading--3"><a class="Anchor" href="#https://www.notion.so/e17021c5301f41769ca3c498b77694a7"><svg width="16" height="16" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><span class="SemanticStringArray"><span class="SemanticString">Docker镜像加载原理：</span></span></h3><blockquote id="https://www.notion.so/df459bbae2ec436f848392aa34106187" class="ColorfulBlock ColorfulBlock--ColorDefault Quote"><span class="SemanticStringArray"><span class="SemanticString">bootfs+rootfs</span></span></blockquote><div id="https://www.notion.so/98bb213cc178413cad7b3855ee3aeed5" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString">bootfs（boot file system）：引导加载kernel</span></span></p></div><div id="https://www.notion.so/3de9beac8c6748078fba3b2cdca5cbc0" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString">rootfs（root file system）：各种操作系统</span></span></p></div><h3 id="https://www.notion.so/89e9f0ea19084a63b55e6572f1774372" class="ColorfulBlock ColorfulBlock--ColorDefault Heading Heading--3"><a class="Anchor" href="#https://www.notion.so/89e9f0ea19084a63b55e6572f1774372"><svg width="16" height="16" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><span class="SemanticStringArray"><span class="SemanticString">镜像分层</span></span></h3><div id="https://www.notion.so/26ae179f1b244742bccc67eec7bb2a1b" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString">Docker镜像都是只读的，当容器启动时，一个新的可写层呗加载到镜像顶部，这一层我们通常称之为容器层，容器层之下的都叫镜像层。</span></span></p></div><h3 id="https://www.notion.so/cb1b0cbaecf4426fa865fb4a77631f7f" class="ColorfulBlock ColorfulBlock--ColorDefault Heading Heading--3"><a class="Anchor" href="#https://www.notion.so/cb1b0cbaecf4426fa865fb4a77631f7f"><svg width="16" height="16" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><span class="SemanticStringArray"><span class="SemanticString">Commit镜像</span></span></h3><pre id="https://www.notion.so/be71b21137a342e8b0468eb639c0f5db" class="Code"><code><span class="SemanticStringArray"><span class="SemanticString"><span># 提交容器成为一个新的副本
+docker commit
+
+# 命令与git原理相似
+docker commit -m=&quot;提交的描述信息&quot; -a=&quot;作者&quot; [容器Id] [目标镜像名]:[TAG]</span></span></span></code></pre><div id="https://www.notion.so/521156104d8b4a3abf2c6d8269bf3496" class="Divider"></div><h3 id="https://www.notion.so/34e11bcd17af4e0089132cdaebb308c5" class="ColorfulBlock ColorfulBlock--ColorDefault Heading Heading--3"><a class="Anchor" href="#https://www.notion.so/34e11bcd17af4e0089132cdaebb308c5"><svg width="16" height="16" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><span class="SemanticStringArray"><span class="SemanticString">容器数据卷</span></span></h3><h3 id="https://www.notion.so/c122b3dd9d184a5aacb3a25d6f24da99" class="ColorfulBlock ColorfulBlock--ColorDefault Heading Heading--3"><a class="Anchor" href="#https://www.notion.so/c122b3dd9d184a5aacb3a25d6f24da99"><svg width="16" height="16" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><span class="SemanticStringArray"><span class="SemanticString">容器数据卷概述：</span></span></h3><div id="https://www.notion.so/f5fc2d1371c64a48bd3f74ebce6b254e" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString">数据卷技术，指目录的挂载，将容器内的目录挂载到Linux系统上，</span><span class="SemanticString"><strong class="SemanticString__Fragment SemanticString__Fragment--Bold">实现容器的持久化和同步操作，实现容器间的数据共享</strong></span></span></p></div><h3 id="https://www.notion.so/2005546e8dbc449c941e3b6a88d8dfe4" class="ColorfulBlock ColorfulBlock--ColorDefault Heading Heading--3"><a class="Anchor" href="#https://www.notion.so/2005546e8dbc449c941e3b6a88d8dfe4"><svg width="16" height="16" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><span class="SemanticStringArray"><span class="SemanticString">使用数据卷</span></span></h3><pre id="https://www.notion.so/02143c96e16f40c4aeab76548e0f7375" class="Code"><code><span class="SemanticStringArray"><span class="SemanticString"><span># 方式一：直接使用命令挂载 -v
+docker run -it -v [主机目录]:[容器目录]
+
+# 查看容器详细信息
+docker inspect [容器Id]</span></span></span></code></pre><div id="https://www.notion.so/010cc8259fe54809a4a7a21e48cef987" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"></span></p></div><div id="https://www.notion.so/149f4233a0e34c558832283a5e7e5054" class="Divider"></div><h1 id="https://www.notion.so/6d512ea98f774838a1d78dac4e5a3b13" class="ColorfulBlock ColorfulBlock--ColorDefault Heading Heading--1"><a class="Anchor" href="#https://www.notion.so/6d512ea98f774838a1d78dac4e5a3b13"><svg width="16" height="16" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><span class="SemanticStringArray"><span class="SemanticString">六、DockerFile</span></span></h1><h3 id="https://www.notion.so/518c404596904bebbf44049a15237bcb" class="ColorfulBlock ColorfulBlock--ColorDefault Heading Heading--3"><a class="Anchor" href="#https://www.notion.so/518c404596904bebbf44049a15237bcb"><svg width="16" height="16" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><span class="SemanticStringArray"><span class="SemanticString">概述：</span></span></h3><div id="https://www.notion.so/fa7d0948d58943608b1dda0f85abb0ff" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString">DockerFile：构建文件，定义了一切步骤，源代码，用来构建镜像文件的命令参数脚本</span></span></p></div><div id="https://www.notion.so/331ff84f2d8e469fb552d971a5b29dbf" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString">DockerImages：通过DockerFile构建生成的镜像，最终发布并运行</span></span></p></div><div id="https://www.notion.so/7b2de189fa2745f4b4f4bc34711475c1" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString">Docker容器：容器就是镜像运行起来提供服务器</span></span></p></div><h3 id="https://www.notion.so/5f11aceb8df846119201f5fb988cbb5b" class="ColorfulBlock ColorfulBlock--ColorDefault Heading Heading--3"><a class="Anchor" href="#https://www.notion.so/5f11aceb8df846119201f5fb988cbb5b"><svg width="16" height="16" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><span class="SemanticStringArray"><span class="SemanticString">DockerFile编写步骤：</span></span></h3><div id="https://www.notion.so/75be53c542e04ef6bcc05b4cfe0b9efd" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString">构建步骤：</span></span></p></div><div id="https://www.notion.so/622129eadee4425c9704857c1308d92c" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString">1、编写一个dockerfile 文件</span></span></p></div><div id="https://www.notion.so/28c561c4ccb24dea815d634fb173a13c" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString">2、docker build 构建成为一个镜像</span></span></p></div><div id="https://www.notion.so/460f7b515818421fa0546064dc8a9f5c" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString">3、docker run 运行镜像</span></span></p></div><div id="https://www.notion.so/083ccdc80e52497cb827952afd9d6f36" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString">4、docker push 发布镜像（Docker hub、阿里云）</span></span></p></div><h3 id="https://www.notion.so/f7fe4c8069264469ac723f2f33ab512a" class="ColorfulBlock ColorfulBlock--ColorDefault Heading Heading--3"><a class="Anchor" href="#https://www.notion.so/f7fe4c8069264469ac723f2f33ab512a"><svg width="16" height="16" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><span class="SemanticStringArray"><span class="SemanticString">DockerFile基础知识：</span></span></h3><div id="https://www.notion.so/e68510803f4d448e9bcfc9ed2773eff9" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString">1、每个关键字（指令）都必须为大写字母；</span></span></p></div><div id="https://www.notion.so/7eab2980028f4384aadf2e3ada6caf92" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString">2、执行从上到下按顺序执行；</span></span></p></div><div id="https://www.notion.so/48a1ac87338043a3ac678beac25ec071" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString">3、# 表示注释；</span></span></p></div><div id="https://www.notion.so/b931e73569cb42e2973111d29765ec03" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString">4、每一个执行都会创建提交一个新的镜像层，并提交！</span></span></p></div><h3 id="https://www.notion.so/88f7fd33619142e0b7c7657cf503bd8d" class="ColorfulBlock ColorfulBlock--ColorDefault Heading Heading--3"><a class="Anchor" href="#https://www.notion.so/88f7fd33619142e0b7c7657cf503bd8d"><svg width="16" height="16" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><span class="SemanticStringArray"><span class="SemanticString">DockerFile文件格式：</span></span></h3><div id="https://www.notion.so/84eb4c1884784836af67ade65874c63b" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString">Dockerfile 分为四部分：</span><span class="SemanticString"><strong class="SemanticString__Fragment SemanticString__Fragment--Bold">基础镜像信息、维护者信息、镜像操作指令、容器启动执行指令</strong></span><span class="SemanticString">。一开始必须要指明所基于的镜像名称，接下来一般会说明维护者信息；后面则是镜像操作指令，例如 RUN 指令。每执行一条RUN 指令，镜像添加新的一层，并提交；最后是 CMD 指令，来指明运行容器时的操作命令。</span></span></p></div><pre id="https://www.notion.so/06aaee8eab944698a4af45e98ad64b99" class="Code"><code><span class="SemanticStringArray"><span class="SemanticString"><span>##  Dockerfile文件格式
+
+# This dockerfile uses the ubuntu image
+# VERSION 2 - EDITION 1
+# Author: docker_user
+# Command format: Instruction [arguments / command] ..
+
+# 1、第一行必须指定 基础镜像信息
+FROM ubuntu
+
+# 2、维护者信息
+MAINTAINER docker_user docker_user@email.com
+
+# 3、镜像操作指令
+RUN echo &quot;deb http://archive.ubuntu.com/ubuntu/ raring main universe&quot; &gt;&gt; /etc/apt/sources.list
+RUN apt-get update &amp;&amp; apt-get install -y nginx
+RUN echo &quot;\ndaemon off;&quot; &gt;&gt; /etc/nginx/nginx.conf
+
+# 4、容器启动执行指令
+CMD /usr/sbin/nginx</span></span></span></code></pre><h3 id="https://www.notion.so/be430284415c4448bb18d998caaea6e3" class="ColorfulBlock ColorfulBlock--ColorDefault Heading Heading--3"><a class="Anchor" href="#https://www.notion.so/be430284415c4448bb18d998caaea6e3"><svg width="16" height="16" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><span class="SemanticStringArray"><span class="SemanticString">DockerFile指令详解</span></span></h3><pre id="https://www.notion.so/abad27c8b72a47e586914a36a8df4071" class="Code"><code><span class="SemanticStringArray"><span class="SemanticString"><span>FROM            # 基础镜像
+MAINTAINER      # 镜像作者，姓名+邮箱
+RUN             # 镜像指令操作步骤
+WORKDIR         # 镜像工作目录
+VOLUE           # 暴露端口
+CMD             # 指定容器启动时要运行的命令，只有最后一个才生效，可被替代
+ENTRYPOINT      # 指定容器启动时要运行的命令，可追加命令
+ONBUILD         # 触发指令，当构建一个被继承Dockerfile,这时候会运行ONBUILD指令
+COPY            # 类似ADD，将我们文件拷贝到镜像
+ENV             # 构建的时候设置环境变量
+</span></span></span></code></pre><pre id="https://www.notion.so/2a6c4752d6074fdc8ea4f8acf2e19e08" class="Code"><code><span class="SemanticStringArray"><span class="SemanticString"><span># FROM 指定基础镜像
+FROM &lt;image&gt;
+FROM &lt;image&gt;:&lt;tag&gt;
+FROM &lt;image&gt;:&lt;digest&gt;
+
+# RUN 执行命令
+#shell格式
+RUN &lt;command&gt;
+#exec格式
+RUN [&quot;executable&quot;, &quot;param1&quot;, &quot;param2&quot;]
+# RUN 指令创建的中间镜像会被缓存，并会在下次构建中使用。如果不想使用这些缓存镜像，可以在构建时指定 --no-cache 参数，如：docker build --no-cache。
+
+# COPY 复制文件
+COPY &lt;源路径&gt;... &lt;目标路径&gt;
+COPY [&quot;&lt;源路径1&gt;&quot;,... &quot;&lt;目标路径&gt;&quot;]
+
+# ADD 更高级的复制文件
+# ADD 指令和 COPY 的格式和性质基本一致。但是在 COPY 基础上增加了一些功能。比如&lt;源路径&gt;可以是一个 URL，这种情况下，Docker 引擎会试图去下载这个链接的文件放到&lt;目标路径&gt;去。
+ADD &lt;源路径&gt;... &lt;目标路径&gt;
+ADD [&quot;&lt;源路径&gt;&quot;,... &quot;&lt;目标路径&gt;&quot;]
+
+# ENV 设置环境变量
+ENV &lt;key&gt; &lt;value&gt;
+ENV &lt;key1&gt;=&lt;value1&gt; &lt;key2&gt;=&lt;value2&gt;...
+
+# EXPOSE 设置监听端口
+EXPOSE &lt;port&gt; [&lt;port&gt;...]
+
+# VOLUME 定义匿名卷
+VOLUME [&quot;/data&quot;]
+
+# WORKDIR 指定工作目录
+WORKDIR /path/to/workdir
+
+# USER 指定当前用户
+USER daemon
+
+# CMD 指定在容器启动时所要执行的命令
+CMD [&quot;executable&quot;,&quot;param1&quot;,&quot;param2&quot;]
+CMD [&quot;param1&quot;,&quot;param2&quot;]
+CMD command param1 param2
+
+# ENTRYPOINT 设置一个可执行程序
+ENTRYPOINT [&quot;executable&quot;, &quot;param1&quot;, &quot;param2&quot;]
+ENTRYPOINT command param1 param2
+
+# LABEL 为镜像添加元数据
+LABEL &lt;key&gt;=&lt;value&gt; &lt;key&gt;=&lt;value&gt; &lt;key&gt;=&lt;value&gt; ...
+LABEL version=&quot;1.0&quot; description=&quot;这是一个Web服务器&quot; by=&quot;IT笔录&quot;
+
+# ONBUILD 设置镜像触发器
+ONBUILD [INSTRUCTION]
+ONBUILD ADD . /app/src
+ONBUILD RUN /usr/local/bin/python-build --dir /app/src</span></span></span></code></pre><h3 id="https://www.notion.so/11fb1d4f9dfe4aac9f97e324c3af3950" class="ColorfulBlock ColorfulBlock--ColorDefault Heading Heading--3"><a class="Anchor" href="#https://www.notion.so/11fb1d4f9dfe4aac9f97e324c3af3950"><svg width="16" height="16" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><span class="SemanticStringArray"><span class="SemanticString">实例：</span></span></h3><h3 id="https://www.notion.so/9ff8bc7f324f4070b95ab22e979fce2e" class="ColorfulBlock ColorfulBlock--ColorDefault Heading Heading--3"><a class="Anchor" href="#https://www.notion.so/9ff8bc7f324f4070b95ab22e979fce2e"><svg width="16" height="16" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><span class="SemanticStringArray"><span class="SemanticString">DockerFile构建Nginx运行环境</span></span></h3><pre id="https://www.notion.so/a626ddeee8b84769b318a6e36adeadb5" class="Code"><code><span class="SemanticStringArray"><span class="SemanticString"><span># 指定基础镜像
+FROM sameersbn/ubuntu:14.04.20161014
+
+# 维护者信息
+MAINTAINER sameer@damagehead.com
+
+# 设置环境
+ENV RTMP_VERSION=1.1.10 \
+    NPS_VERSION=1.11.33.4 \
+    LIBAV_VERSION=11.8 \
+    NGINX_VERSION=1.10.1 \
+    NGINX_USER=www-data \
+    NGINX_SITECONF_DIR=/etc/nginx/sites-enabled \
+    NGINX_LOG_DIR=/var/log/nginx \
+    NGINX_TEMP_DIR=/var/lib/nginx \
+    NGINX_SETUP_DIR=/var/cache/nginx
+
+# 设置构建时变量，镜像建立完成后就失效
+ARG BUILD_LIBAV=false
+ARG WITH_DEBUG=false
+ARG WITH_PAGESPEED=true
+ARG WITH_RTMP=true
+
+# 复制本地文件到容器目录中
+COPY setup/ ${NGINX_SETUP_DIR}/
+RUN bash ${NGINX_SETUP_DIR}/install.sh
+
+# 复制本地配置文件到容器目录中
+COPY nginx.conf /etc/nginx/nginx.conf
+COPY entrypoint.sh /sbin/entrypoint.sh
+
+# 运行指令
+RUN chmod 755 /sbin/entrypoint.sh
+
+# 允许指定的端口
+EXPOSE 80/tcp 443/tcp 1935/tcp
+
+# 指定网站目录挂载点
+VOLUME [&quot;${NGINX_SITECONF_DIR}&quot;]
+
+ENTRYPOINT [&quot;/sbin/entrypoint.sh&quot;]
+CMD [&quot;/usr/sbin/nginx&quot;]</span></span></span></code></pre><h3 id="https://www.notion.so/f29921b02b014fdeaf1eda00efa43252" class="ColorfulBlock ColorfulBlock--ColorDefault Heading Heading--3"><a class="Anchor" href="#https://www.notion.so/f29921b02b014fdeaf1eda00efa43252"><svg width="16" height="16" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><span class="SemanticStringArray"><span class="SemanticString">Dockerfile文件构建tomcat 环境（一）</span></span></h3><pre id="https://www.notion.so/20aacc68448f4ab8a13571594fd5a99d" class="Code"><code><span class="SemanticStringArray"><span class="SemanticString"><span># 指定基于的基础镜像
+FROM ubuntu:13.10
+
+# 维护者信息
+MAINTAINER zhangjiayang &quot;zhangjiayang@sczq.com.cn&quot;
+
+# 镜像的指令操作
+# 获取APT更新的资源列表
+RUN echo &quot;deb http://archive.ubuntu.com/ubuntu precise main universe&quot;&gt; /etc/apt/sources.list
+# 更新软件
+RUN apt-get update
+
+# Install curl
+RUN apt-get -y install curl
+
+# Install JDK 7
+RUN cd /tmp &amp;&amp;  curl -L &#x27;http://download.oracle.com/otn-pub/java/jdk/7u65-b17/jdk-7u65-linux-x64.tar.gz&#x27; -H &#x27;Cookie: oraclelicense=accept-securebackup-cookie; gpw_e24=Dockerfile&#x27; | tar -xz
+RUN mkdir -p /usr/lib/jvm
+RUN mv /tmp/jdk1.7.0_65/ /usr/lib/jvm/java-7-oracle/
+
+# Set Oracle JDK 7 as default Java
+RUN update-alternatives --install /usr/bin/java java /usr/lib/jvm/java-7-oracle/bin/java 300
+RUN update-alternatives --install /usr/bin/javac javac /usr/lib/jvm/java-7-oracle/bin/javac 300
+
+# 设置系统环境
+ENV JAVA_HOME /usr/lib/jvm/java-7-oracle/
+
+# Install tomcat7
+RUN cd /tmp &amp;&amp; curl -L &#x27;http://archive.apache.org/dist/tomcat/tomcat-7/v7.0.8/bin/apache-tomcat-7.0.8.tar.gz&#x27; | tar -xz
+RUN mv /tmp/apache-tomcat-7.0.8/ /opt/tomcat7/
+
+ENV CATALINA_HOME /opt/tomcat7
+ENV PATH $PATH:$CATALINA_HOME/bin
+
+# 复件tomcat7.sh到容器中的目录
+ADD tomcat7.sh /etc/init.d/tomcat7
+RUN chmod 755 /etc/init.d/tomcat7
+
+# Expose ports.  指定暴露的端口
+EXPOSE 8080
+
+# Define default command.
+ENTRYPOINT service tomcat7 start &amp;&amp; tail -f /opt/tomcat7/logs/catalina.out</span></span></span></code></pre><div id="https://www.notion.so/e2c398c05c2d45e398226d3a4c6bd170" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString"><code class="SemanticString__Fragment SemanticString__Fragment--Code">tomcat7.sh</code></span><span class="SemanticString">命令文件</span></span></p></div><pre id="https://www.notion.so/6e3184a2618f415a8c59f9d34abaaa3f" class="Code"><code><span class="SemanticStringArray"><span class="SemanticString"><span>export JAVA_HOME=/usr/lib/jvm/java-7-oracle/
+export TOMCAT_HOME=/opt/tomcat7
+
+case $1 in
+start)
+  sh $TOMCAT_HOME/bin/startup.sh
+;;
+stop)
+  sh $TOMCAT_HOME/bin/shutdown.sh
+;;
+restart)
+  sh $TOMCAT_HOME/bin/shutdown.sh
+  sh $TOMCAT_HOME/bin/startup.sh
+;;
+esac
+exit 0</span></span></span></code></pre><h3 id="https://www.notion.so/2fceec00afde44c58b12a66b4ca411f3" class="ColorfulBlock ColorfulBlock--ColorDefault Heading Heading--3"><a class="Anchor" href="#https://www.notion.so/2fceec00afde44c58b12a66b4ca411f3"><svg width="16" height="16" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><span class="SemanticStringArray"><span class="SemanticString">Dockerfile文件构建tomcat 环境（二）：</span></span></h3><pre id="https://www.notion.so/e3e01125d0c141229456740aa4633194" class="Code"><code><span class="SemanticStringArray"><span class="SemanticString"><span>FROM centos
+MAINTAINER lzh
+
+COPY readme.txt /usr/local/
+ADD apache-tomcat-9.0.22.tar.gz /usr/local/
+
+RUN yum -y install vim
+
+ENV MYPATH /usr/local
+WORKDIR $MYPATH
+
+ENV JAVA_HOME /usr/local/jdk1.8.0_11
+ENV CLASSPATH $JAVA_HOME/lib/dt.jar:$JAVA_HOME/lib/tools.jar
+ENV CATALINA_HOME /usr/local/apache-tomcat-9.0.22
+ENV CATALINA_BASH /usr/local/apache-tomcat-9.0.22
+ENV PATH $PATH:$JAVA_HOME/bin:$CATALINA_HOME/lib:$CATALINA_HOME/bin
+
+EXPOSE 8080
+
+CMD /usr/local/apache-tomcat-9.0.22/bin/start.sh &amp;&amp; /usr/local/apache-tomcat-9.0.22/bin/logs/catalina.out</span></span></span></code></pre><div id="https://www.notion.so/65fa7378eeff407e912ec1d4704cbc00" class="Divider"></div><h1 id="https://www.notion.so/ec17d583cf5a41e18741b7fd1c26268a" class="ColorfulBlock ColorfulBlock--ColorDefault Heading Heading--1"><a class="Anchor" href="#https://www.notion.so/ec17d583cf5a41e18741b7fd1c26268a"><svg width="16" height="16" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><span class="SemanticStringArray"><span class="SemanticString">七、Docker Compose</span></span></h1><h3 id="https://www.notion.so/a158250fc52d455f8c1691a0e20ab884" class="ColorfulBlock ColorfulBlock--ColorDefault Heading Heading--3"><a class="Anchor" href="#https://www.notion.so/a158250fc52d455f8c1691a0e20ab884"><svg width="16" height="16" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><span class="SemanticStringArray"><span class="SemanticString">Docker Compose的安装</span></span></h3><pre id="https://www.notion.so/9d0cec7ab4214e228e7bae132188ca85" class="Code"><code><span class="SemanticStringArray"><span class="SemanticString"><span># 下载安装包
+sudo curl -L &quot;https://github.com/docker/compose/releases/download/1.25.4/docker-compose-$(uname -s)-$(uname -m)&quot; -o /usr/local/bin/docker-compose
+# 设置权限
+sudo chmod +x /usr/local/bin/docker-compose
+# 添加软连接
+sudo ln -s /usr/local/bin/docker-compose /usr/bin/docker-compose
+# 查看安装信息
+docker-compose --version
+# 卸载数据
+sudo rm /usr/local/bin/docker-compose</span></span></span></code></pre><h3 id="https://www.notion.so/46ebecb0f8f549dfa4506347c043a808" class="ColorfulBlock ColorfulBlock--ColorDefault Heading Heading--3"><a class="Anchor" href="#https://www.notion.so/46ebecb0f8f549dfa4506347c043a808"><svg width="16" height="16" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><span class="SemanticStringArray"><span class="SemanticString">常用命令</span></span></h3><pre id="https://www.notion.so/9b34b140044b4f629307a2780330d9a3" class="Code"><code><span class="SemanticStringArray"><span class="SemanticString"><span># 后台启动
+docker-compose up -d
+# 停止
+docker-compose down
+# 查询容器列表
+docker-compose ps
+     Name                   Command               State                 Ports
+--------------------------------------------------------------------------------------------
+mysql_atlas_1    /bin/sh -c /usr/local/mysq ...   Up      0.0.0.0:12346-&gt;1234/tcp
+mysql_master_1   docker-entrypoint.sh mysqld      Up      0.0.0.0:12347-&gt;3306/tcp, 33060/tcp
+mysql_slave1_1   docker-entrypoint.sh mysqld      Up      0.0.0.0:12348-&gt;3306/tcp, 33060/tcp
+mysql_slave2_1   docker-entrypoint.sh mysqld      Up      0.0.0.0:12349-&gt;3306/tcp, 33060/tcp
+# 查询日志 (查询所有日志，可以辅助排查个别容器启动失败问题)
+docker-compose logs
+
+docker-compose 命令 --help                     获得一个命令的帮助
+docker-compose up -d nginx                     构建启动nignx容器
+docker-compose exec nginx bash                 登录到nginx容器中
+docker-compose down                            此命令将会停止 up 命令所启动的容器，并移除网络
+docker-compose ps                              列出项目中目前的所有容器
+docker-compose restart nginx                   重新启动nginx容器
+docker-compose build nginx                     构建镜像
+docker-compose build --no-cache nginx          不带缓存的构建
+docker-compose top                             查看各个服务容器内运行的进程
+docker-compose logs -f nginx                   查看nginx的实时日志
+docker-compose images                          列出 Compose 文件包含的镜像
+docker-compose config                          验证文件配置，当配置正确时，不输出任何内容，当文件配置错误，输出错误信息。
+docker-compose events --json nginx             以json的形式输出nginx的docker日志
+docker-compose pause nginx                     暂停nignx容器
+docker-compose unpause nginx                   恢复ningx容器
+docker-compose rm nginx                        删除容器（删除前必须关闭容器，执行stop）
+docker-compose stop nginx                      停止nignx容器
+docker-compose start nginx                     启动nignx容器
+docker-compose restart nginx                   重启项目中的nignx容器
+docker-compose run --no-deps --rm php-fpm php -v   在php-fpm中不启动关联容器，并容器执行php -v 执行完成后删除容器</span></span></span></code></pre><div id="https://www.notion.so/f850ee66fe1f4aa9a10c99ff7ce8caca" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"></span></p></div></article>
+  <footer class="Footer">
+  <div>&copy; Jaleel&#39;s Blog 2022</div>
+  <div>&centerdot;</div>
+  <div>Powered by <a href="https://github.com/dragonman225/notablog" target="_blank"
+      rel="noopener noreferrer">Notablog</a>.
+  </div>
+</footer>
+</body>
+
+</html>

@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- iOS Safari -->
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<!-- Chrome, Firefox OS and Opera Status Bar Color -->
+<meta name="theme-color" content="#FFFFFF">
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.11.1/katex.min.css">
+<link rel="stylesheet" type="text/css"
+  href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.19.0/themes/prism.min.css">
+<link rel="stylesheet" type="text/css" href="css/SourceSansPro.css">
+<link rel="stylesheet" type="text/css" href="css/theme.css">
+<link rel="stylesheet" type="text/css" href="css/notablog.css">
+<!-- Favicon -->
+
+  <link rel="shortcut icon" href="https://www.notion.so/signed/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2Fca6e9e8d-f91e-48ac-b23c-f18320c1c383%2FRDN_%25E5%258C%25BA%25E5%259D%2597%25E9%2593%25BE.png?table=collection&amp;id=7341bacf-11e4-44a7-8730-f75a670e8ab8">
+
+<style>
+  :root {
+    font-size: 20px;
+  }
+</style>
+  <title>Docker配置阿里云镜像仓&nbsp;|&nbsp;Jaleel</title>
+  <meta property="og:type" content="blog">
+  <meta property="og:title" content="Docker配置阿里云镜像仓">
+  
+    <meta name="description" content="Docker配置阿里云镜像仓，并推送到阿里云镜像仓">
+    <meta property="og:description" content="Docker配置阿里云镜像仓，并推送到阿里云镜像仓">
+  
+  
+    <meta property="og:image" content="data:image/svg+xml,&lt;svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22&gt;&lt;text text-anchor=%22middle%22 dominant-baseline=%22middle%22 x=%2250%22 y=%2255%22 font-size=%2280%22&gt;🪀&lt;/text&gt;&lt;/svg&gt;">
+  
+  <style>
+    .DateTagBar {
+      margin-top: 1.0rem;
+    }
+  </style>
+</head>
+
+<body>
+  <nav class="Navbar">
+  <a class="navbar-brand" href="/">
+    <strong>Jaleel's Blog</strong>
+  </a>
+
+  <a href="index.html">
+    <div class="Navbar__Btn">
+      
+        <span><img class="inline-img-icon" src="https://www.notion.so/signed/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2Fca6e9e8d-f91e-48ac-b23c-f18320c1c383%2FRDN_%25E5%258C%25BA%25E5%259D%2597%25E9%2593%25BE.png?table=collection&amp;id=7341bacf-11e4-44a7-8730-f75a670e8ab8"></span>&nbsp;
+      
+      <span>主页</span>
+    </div>
+  </a>
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+      <span class="Navbar__Delim">&centerdot;</span>
+      <a href="paper.html">
+        <div class="Navbar__Btn">
+          
+            <span><img class="inline-img-icon" src="data:image/svg+xml,&lt;svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22&gt;&lt;text text-anchor=%22middle%22 dominant-baseline=%22middle%22 x=%2250%22 y=%2255%22 font-size=%2280%22&gt;📔&lt;/text&gt;&lt;/svg&gt;"></span>&nbsp;
+          
+          <span>技术资料</span>
+        </div>
+      </a>
+    
+  
+    
+      <span class="Navbar__Delim">&centerdot;</span>
+      <a href="about.html">
+        <div class="Navbar__Btn">
+          
+            <span><img class="inline-img-icon" src="https://www.notion.so/signed/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2Ff4c34181-9785-493c-a490-929fa5895258%2F224%25E7%2594%25A8%25E6%2588%25B7.png?table=block&amp;id=cce294fa-3f4c-413b-9b68-387c3c57cb66"></span>&nbsp;
+          
+          <span>关于</span>
+        </div>
+      </a>
+    
+  
+</nav>
+
+  <header class="Header">
+    
+      <div class="Header__Cover">
+        <img src="https://www.notion.so/images/page-cover/nasa_buzz_aldrin_on_the_moon.jpg">
+      </div>
+    
+    <div class="Header__Spacer ">
+    </div>
+    
+      <div class="Header__Icon">
+        <span><img class="inline-img-icon" src="data:image/svg+xml,&lt;svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22&gt;&lt;text text-anchor=%22middle%22 dominant-baseline=%22middle%22 x=%2250%22 y=%2255%22 font-size=%2280%22&gt;🪀&lt;/text&gt;&lt;/svg&gt;"></span>
+      </div>
+    
+    <h1 class="Header__Title">Docker配置阿里云镜像仓</h1>
+    
+      <div class="DateTagBar">
+        
+          <span class="DateTagBar__Item DateTagBar__Date">Posted on Thu, Oct 20, 2022</span>
+        
+        
+          <span class="DateTagBar__Item DateTagBar__Tag DateTagBar__Tag--orange">
+            <a href="tag/Docker.html">Docker</a>
+          </span>
+        
+      </div>
+    
+  </header>
+  <article id="https://www.notion.so/9703b460a4d7401580a2ba221c28cbe2" class="PageRoot"><h2 id="https://www.notion.so/369b021993814aa5b3b8cf3e559949b2" class="ColorfulBlock ColorfulBlock--ColorDefault Heading Heading--2"><a class="Anchor" href="#https://www.notion.so/369b021993814aa5b3b8cf3e559949b2"><svg width="16" height="16" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><span class="SemanticStringArray"><span class="SemanticString">1. 登录阿里云Docker Registry</span></span></h2><pre id="https://www.notion.so/7f4b851ff75643f6b30e84bd9ea2c1cb" class="Code"><code><span class="SemanticStringArray"><span class="SemanticString"><span>$ docker login --username=jalee**** registry.cn-shenzhen.aliyuncs.com</span></span></span></code></pre><div id="https://www.notion.so/b7931fc59b5d4581bce0e24d83f296a7" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString">用于登录的用户名为阿里云账号全名，密码为开通服务时设置的密码。</span></span></p></div><div id="https://www.notion.so/194bc44e6bf845798918ca27126e7e05" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString">您可以在访问凭证页面修改凭证密码。</span></span></p></div><h2 id="https://www.notion.so/d94e2704040c414c9271d824253632d6" class="ColorfulBlock ColorfulBlock--ColorDefault Heading Heading--2"><a class="Anchor" href="#https://www.notion.so/d94e2704040c414c9271d824253632d6"><svg width="16" height="16" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><span class="SemanticStringArray"><span class="SemanticString">2. 从Registry中拉取镜像</span></span></h2><pre id="https://www.notion.so/fdf294abab524a8987b0444f665d2f02" class="Code"><code><span class="SemanticStringArray"><span class="SemanticString"><span>$ docker pull registry.cn-shenzhen.aliyuncs.com/gzhu/gzhu_images:[镜像版本号]</span></span></span></code></pre><h2 id="https://www.notion.so/651ad4a3630b4e58bdea064d5dcd370f" class="ColorfulBlock ColorfulBlock--ColorDefault Heading Heading--2"><a class="Anchor" href="#https://www.notion.so/651ad4a3630b4e58bdea064d5dcd370f"><svg width="16" height="16" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><span class="SemanticStringArray"><span class="SemanticString">3. 将镜像推送到Registry</span></span></h2><pre id="https://www.notion.so/cfc4aa39571e418394d7cdd78db469f4" class="Code"><code><span class="SemanticStringArray"><span class="SemanticString"><span>$ docker login --username=jalee**** registry.cn-shenzhen.aliyuncs.com
+$ docker tag [ImageId] registry.cn-shenzhen.aliyuncs.com/gzhu/gzhu_images:[镜像版本号]
+$ docker push registry.cn-shenzhen.aliyuncs.com/gzhu/gzhu_images:[镜像版本号]</span></span></span></code></pre><div id="https://www.notion.so/f0dd0f76a62d423b9f2888af20f1a29c" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString">请根据实际镜像信息替换示例中的[ImageId]和[镜像版本号]参数。</span></span></p></div><h2 id="https://www.notion.so/d451a583f9cf40b6bf5f9cd6d14beed2" class="ColorfulBlock ColorfulBlock--ColorDefault Heading Heading--2"><a class="Anchor" href="#https://www.notion.so/d451a583f9cf40b6bf5f9cd6d14beed2"><svg width="16" height="16" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><span class="SemanticStringArray"><span class="SemanticString">4. 选择合适的镜像仓库地址</span></span></h2><div id="https://www.notion.so/42c4f0bcb7614e0c902674876811e482" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString">从ECS推送镜像时，可以选择使用镜像仓库内网地址。推送速度将得到提升并且将不会损耗您的公网流量。</span></span></p></div><div id="https://www.notion.so/8bb47b48f4154e7b88694bc6c3460360" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString">如果您使用的机器位于VPC网络，请使用 registry-vpc.cn-shenzhen.aliyuncs.com 作为Registry的域名登录。</span></span></p></div><h2 id="https://www.notion.so/36ef50a56f2b4c579d5fa667b3f9a46b" class="ColorfulBlock ColorfulBlock--ColorDefault Heading Heading--2"><a class="Anchor" href="#https://www.notion.so/36ef50a56f2b4c579d5fa667b3f9a46b"><svg width="16" height="16" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><span class="SemanticStringArray"><span class="SemanticString">5. 示例</span></span></h2><div id="https://www.notion.so/8a1a8e87da8a44db870ce757e8eb3ae1" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString">使用“docker tag”命令重命名镜像，并将它通过专有网络地址推送至Registry。</span></span></p></div><pre id="https://www.notion.so/c2b3ee2b62cc4a818a5f40fceb424c8f" class="Code"><code><span class="SemanticStringArray"><span class="SemanticString"><span>$ docker imagesREPOSITORY                                                         TAG                 IMAGE ID            CREATED             VIRTUAL SIZEregistry.aliyuncs.com/acs/agent                                    0.7-dfb6816         37bb9c63c8b2        7 days ago          37.89 MB$ docker tag 37bb9c63c8b2 registry-vpc.cn-shenzhen.aliyuncs.com/acs/agent:0.7-dfb6816</span></span></span></code></pre><div id="https://www.notion.so/83d911fda323415fbf71ecae2cc8a180" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString">使用 “docker push” 命令将该镜像推送至远程。</span></span></p></div><pre id="https://www.notion.so/701f0c13bfd04f1f80f52954f9306b5b" class="Code"><code><span class="SemanticStringArray"><span class="SemanticString"><span>$ docker push registry-vpc.cn-shenzhen.aliyuncs.com/acs/agent:0.7-dfb6816</span></span></span></code></pre></article>
+  <footer class="Footer">
+  <div>&copy; Jaleel 2023</div>
+  <div>&centerdot;</div>
+  <div>Powered by <a href="https://github.com/dragonman225/notablog" target="_blank"
+      rel="noopener noreferrer">Notablog</a>.
+  </div>
+</footer>
+</body>
+
+</html>

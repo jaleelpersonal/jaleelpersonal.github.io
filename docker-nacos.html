@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- iOS Safari -->
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<!-- Chrome, Firefox OS and Opera Status Bar Color -->
+<meta name="theme-color" content="#FFFFFF">
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.11.1/katex.min.css">
+<link rel="stylesheet" type="text/css"
+  href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.19.0/themes/prism.min.css">
+<link rel="stylesheet" type="text/css" href="css/SourceSansPro.css">
+<link rel="stylesheet" type="text/css" href="css/theme.css">
+<link rel="stylesheet" type="text/css" href="css/notablog.css">
+<!-- Favicon -->
+
+  <link rel="shortcut icon" href="https://www.notion.so/signed/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2Fca6e9e8d-f91e-48ac-b23c-f18320c1c383%2FRDN_%25E5%258C%25BA%25E5%259D%2597%25E9%2593%25BE.png?table=collection&amp;id=7341bacf-11e4-44a7-8730-f75a670e8ab8">
+
+<style>
+  :root {
+    font-size: 20px;
+  }
+</style>
+  <title>Docker部署Nacos单机版&nbsp;|&nbsp;Jaleel</title>
+  <meta property="og:type" content="blog">
+  <meta property="og:title" content="Docker部署Nacos单机版">
+  
+    <meta name="description" content="Docker部署Nacos单机版">
+    <meta property="og:description" content="Docker部署Nacos单机版">
+  
+  
+    <meta property="og:image" content="data:image/svg+xml,&lt;svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22&gt;&lt;text text-anchor=%22middle%22 dominant-baseline=%22middle%22 x=%2250%22 y=%2255%22 font-size=%2280%22&gt;🕹️&lt;/text&gt;&lt;/svg&gt;">
+  
+  <style>
+    .DateTagBar {
+      margin-top: 1.0rem;
+    }
+  </style>
+</head>
+
+<body>
+  <nav class="Navbar">
+  <a class="navbar-brand" href="/">
+    <strong>Jaleel's Blog</strong>
+  </a>
+
+  <a href="index.html">
+    <div class="Navbar__Btn">
+      
+        <span><img class="inline-img-icon" src="https://www.notion.so/signed/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2Fca6e9e8d-f91e-48ac-b23c-f18320c1c383%2FRDN_%25E5%258C%25BA%25E5%259D%2597%25E9%2593%25BE.png?table=collection&amp;id=7341bacf-11e4-44a7-8730-f75a670e8ab8"></span>&nbsp;
+      
+      <span>主页</span>
+    </div>
+  </a>
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+      <span class="Navbar__Delim">&centerdot;</span>
+      <a href="paper.html">
+        <div class="Navbar__Btn">
+          
+            <span><img class="inline-img-icon" src="data:image/svg+xml,&lt;svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22&gt;&lt;text text-anchor=%22middle%22 dominant-baseline=%22middle%22 x=%2250%22 y=%2255%22 font-size=%2280%22&gt;📔&lt;/text&gt;&lt;/svg&gt;"></span>&nbsp;
+          
+          <span>技术资料</span>
+        </div>
+      </a>
+    
+  
+    
+      <span class="Navbar__Delim">&centerdot;</span>
+      <a href="about.html">
+        <div class="Navbar__Btn">
+          
+            <span><img class="inline-img-icon" src="https://www.notion.so/signed/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2Ff4c34181-9785-493c-a490-929fa5895258%2F224%25E7%2594%25A8%25E6%2588%25B7.png?table=block&amp;id=cce294fa-3f4c-413b-9b68-387c3c57cb66"></span>&nbsp;
+          
+          <span>关于</span>
+        </div>
+      </a>
+    
+  
+</nav>
+
+  <header class="Header">
+    
+      <div class="Header__Cover">
+        <img src="https://www.notion.so/images/page-cover/rijksmuseum_claesz_1628.jpg">
+      </div>
+    
+    <div class="Header__Spacer ">
+    </div>
+    
+      <div class="Header__Icon">
+        <span><img class="inline-img-icon" src="data:image/svg+xml,&lt;svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22&gt;&lt;text text-anchor=%22middle%22 dominant-baseline=%22middle%22 x=%2250%22 y=%2255%22 font-size=%2280%22&gt;🕹️&lt;/text&gt;&lt;/svg&gt;"></span>
+      </div>
+    
+    <h1 class="Header__Title">Docker部署Nacos单机版</h1>
+    
+      <div class="DateTagBar">
+        
+          <span class="DateTagBar__Item DateTagBar__Date">Posted on Thu, Oct 20, 2022</span>
+        
+        
+          <span class="DateTagBar__Item DateTagBar__Tag DateTagBar__Tag--orange">
+            <a href="tag/Docker.html">Docker</a>
+          </span>
+        
+          <span class="DateTagBar__Item DateTagBar__Tag DateTagBar__Tag--pink">
+            <a href="tag/Nacos.html">Nacos</a>
+          </span>
+        
+      </div>
+    
+  </header>
+  <article id="https://www.notion.so/89e31ad12c184d248d5a3e6babac6323" class="PageRoot"><h3 id="https://www.notion.so/123b0a5ed57446a6ab6f0b0ade0cc53e" class="ColorfulBlock ColorfulBlock--ColorDefault Heading Heading--3"><a class="Anchor" href="#https://www.notion.so/123b0a5ed57446a6ab6f0b0ade0cc53e"><svg width="16" height="16" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><span class="SemanticStringArray"><span class="SemanticString">方式一</span></span></h3><div id="https://www.notion.so/aea20f444e8941ccb5d96521f8f5f819" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString">仅部署nacos-server,不使用prometheus/grafana等监控组件</span></span></p></div><div id="https://www.notion.so/6defc795925e4f80b5b4ab690a2bf6b8" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString">1.拉取镜像</span></span></p></div><pre id="https://www.notion.so/29792b1934dc4469a196f754899f8e90" class="Code"><code><span class="SemanticStringArray"><span class="SemanticString"><span>docker pull nacos/nacos-server</span></span></span></code></pre><div id="https://www.notion.so/7b1470eacf474dcabb0dde23aa36cc0e" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString">2、挂载目录</span></span></p></div><pre id="https://www.notion.so/b5e7b8a942ad41b495917b905ad962c2" class="Code"><code><span class="SemanticStringArray"><span class="SemanticString"><span># 新建logs目录
+mkdir -p /home/nacos/logs/
+mkdir -p /home/nacos/init.d/
+# 修改配置文件
+vim /home/nacos/init.d/custom.properties</span></span></span></code></pre><div id="https://www.notion.so/3a5c9271f5634a7f8f86ee70571ca3af" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString">添加如下参数：</span></span></p></div><pre id="https://www.notion.so/3306156c14514890b231e999f0887df7" class="Code"><code><span class="SemanticStringArray"><span class="SemanticString"><span>server.contextPath=/nacos
+server.servlet.contextPath=/nacos
+server.port=8848
+
+spring.datasource.platform=mysql
+
+db.num=1
+db.url.0=jdbc:mysql://127.0.0.1:3306/nacos_dev?characterEncoding=utf8&amp;connectTimeout=1000&amp;socketTimeout=3000&amp;autoReconnect=true
+db.user=root
+db.password=123456
+
+
+nacos.cmdb.dumpTaskInterval=3600
+nacos.cmdb.eventTaskInterval=10
+nacos.cmdb.labelTaskInterval=300
+nacos.cmdb.loadDataAtStart=false
+
+management.metrics.export.elastic.enabled=false
+
+management.metrics.export.influx.enabled=false
+
+
+server.tomcat.accesslog.enabled=true
+server.tomcat.accesslog.pattern=%h %l %u %t &quot;%r&quot; %s %b %D %{User-Agent}i
+
+
+nacos.security.ignore.urls=/,/**/*.css,/**/*.js,/**/*.html,/**/*.map,/**/*.svg,/**/*.png,/**/*.ico,/console-fe/public/**,/v1/auth/login,/v1/console/health/**,/v1/cs/**,/v1/ns/**,/v1/cmdb/**,/actuator/**,/v1/console/server/**
+nacos.naming.distro.taskDispatchThreadCount=1
+nacos.naming.distro.taskDispatchPeriod=200
+nacos.naming.distro.batchSyncKeyCount=1000
+nacos.naming.distro.initDataRatio=0.9
+nacos.naming.distro.syncRetryDelay=5000
+nacos.naming.data.warmup=true
+nacos.naming.expireInstance=true</span></span></span></code></pre><div id="https://www.notion.so/329299d0f3bc4f95a70d1f9524436073" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString">3.启动容器</span></span></p></div><pre id="https://www.notion.so/9ef42b247bf444b0b09d283c9f899983" class="Code"><code><span class="SemanticStringArray"><span class="SemanticString"><span>docker  run \
+--name nacos -d \
+-p 8848:8848 \
+--privileged=true \
+--restart=always \
+-e JVM_XMS=256m \
+-e JVM_XMX=256m \
+-e MODE=standalone \
+-e PREFER_HOST_MODE=hostname \
+-v /home/nacos/logs:/home/nacos/logs \
+-v /home/nacos/init.d/custom.properties:/home/nacos/init.d/custom.properties \
+nacos/nacos-server</span></span></span></code></pre></article>
+  <footer class="Footer">
+  <div>&copy; Jaleel 2023</div>
+  <div>&centerdot;</div>
+  <div>Powered by <a href="https://github.com/dragonman225/notablog" target="_blank"
+      rel="noopener noreferrer">Notablog</a>.
+  </div>
+</footer>
+</body>
+
+</html>
